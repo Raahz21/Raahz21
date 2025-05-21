@@ -1,0 +1,1036 @@
+body, html {
+    font-family: 'Doto', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background:
+        radial-gradient(ellipse at 70% 40%, rgba(80,80,80,0.25) 0%, rgba(0,0,0,0.9) 80%),
+        linear-gradient(120deg, #181b23 0%, #23263a 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    color: #f5f7fa; /* Brighter base text color */
+}
+
+/* Remove top gap for both desktop and mobile */
+body {
+    padding-top: 0 !important;
+}
+
+.header {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* For desktop, keep the top padding for the fixed navbar */
+body {
+    padding-top: 64px;
+}
+
+.navbar {
+    position: static;
+    width: 100vw;
+    height: auto;
+    box-shadow: 0 2px 16px 0 rgba(40,40,60,0.10);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.navbar ul li {
+    margin: 0 16px;
+    position: relative;
+    padding: 0 19.2px;
+    font-size: 1.1rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li a {
+    color: #e0e6ff !important; /* Brighter link color */
+    text-decoration: none;
+}
+
+.navbar ul li input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    float: right;
+    margin-left: 16px;
+}
+
+.navbar ul li input:focus {
+    outline: none;
+}
+
+.navbar ul li:hover {
+    background-color: #444;
+    transition: all 0.3s ease;
+}
+
+.navbar ul li:hover ul {
+    display: block;
+}
+
+.navbar .search-bar {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .search-bar input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    width: 180px;
+    background: #fff;
+    color: #222;
+    margin-left: 16px;
+}
+
+/* Desktop styles */
+.header {
+    display: flex;
+    flex-direction: row-reverse; /* image right, info left */
+    align-items: stretch; /* Make children take full height */
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    color: white;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    position: relative;
+    gap: 2.5rem;
+}
+
+.header-info {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 600px;
+    margin-left: 4vw;
+    margin-top: 3rem;
+    color: #f5f7fa !important; /* Apply bright color to all main text */
+}
+
+.header-info h1 {
+    font-size: 3rem;
+    margin: 0 0 1.5rem 0;
+    text-align: left;
+    width: 100%;
+    white-space: normal;      /* Allow wrapping instead of truncating */
+    overflow: visible;        /* Remove ellipsis */
+    text-overflow: unset;     /* Remove ellipsis */
+    letter-spacing: 0.04em;
+}
+
+.profile-card {
+    margin: 2rem auto 0 auto;
+    max-width: 480px;
+    background: rgba(30, 32, 40, 0.85);
+    border: 1.5px solid rgba(120, 120, 180, 0.18);
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 32px 0 rgba(80,80,120,0.18), 0 0 0.5rem 0.1rem rgba(80,80,120,0.12);
+    backdrop-filter: blur(6px);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    color: #f5f7fa !important; /* Apply bright color to all main text */
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    transition: box-shadow 0.3s;
+    width: 100%;
+}
+
+.profile-card:hover {
+    box-shadow: 0 8px 48px 0 rgba(120,120,180,0.22), 0 0 1rem 0.2rem rgba(120,120,180,0.18);
+}
+
+.profile-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f5f7fa !important; /* Apply bright color to all main text */
+    text-align: center;
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 8px rgba(80,80,120,0.18);
+}
+
+.profile-section {
+    margin-bottom: 1.1rem;
+    color: #f5f7fa !important; /* Apply bright color to all main text */
+}
+
+.profile-section strong {
+    color: #f5f7fa !important; /* Apply bright color to all main text */
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.profile-section ul {
+    margin: 0 0 0 1.1rem;
+    padding: 0;
+    list-style: disc;
+    color: #f5f7fa !important; /* Apply bright color to all main text */
+}
+
+.profile-section li {
+    margin-bottom: 0.35rem;
+    line-height: 1.5;
+}
+
+.name {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;       /* Vertically center image */
+    justify-content: center;   /* Horizontally center image */
+    margin-right: 4vw;
+    margin-top: 2rem;
+    min-width: 0;
+    height: auto;
+    max-width: 600px;
+}
+
+.pic img {
+    max-height: 70vh;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter:
+        drop-shadow(8px 0 0 rgba(80,80,80,0.7))
+        drop-shadow(16px 0 0 rgba(120,120,120,0.5))
+        drop-shadow(24px 0 0 rgba(180,180,180,0.4));
+    transition:
+        filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, filter;
+}
+
+/* Mobile: stack vertically, image on top */
+@media (max-width: 768px) {
+    .navbar {
+        position: static;
+        width: 100vw;
+        height: auto;
+        background: rgba(20, 22, 30, 0.92);
+        box-shadow: 0 2px 16px 0 rgba(40,40,60,0.10);
+        margin-bottom: 0;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body {
+        padding-top: 0 !important;
+    }
+    .header {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    body {
+        padding-top: 0;
+    }
+    .navbar {
+        height: auto;
+        margin-bottom: 0;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .navbar .search-bar {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+    }
+    .header {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        gap: 0;
+    }
+    .name {
+        order: 0;
+        margin: 0;
+        min-width: 0;
+        max-width: 100vw;
+        margin-right: 0;
+        margin-top: 0;
+    }
+    .header-info {
+        order: 1;
+        margin: 0;
+        max-width: 98vw;
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-sizing: border-box;
+        margin-bottom: 2.5rem; /* Add space below info text on home page */
+    }
+    .header-info h1 {
+        font-size: 2rem;
+        text-align: center;
+        margin: 1.5rem 0 1rem 0;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        letter-spacing: 0.04em;
+        line-height: 1.0;
+    }
+    .header-info,
+    .profile-card,
+    .prices-section .header-info,
+    .prices-section .profile-card {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-sizing: border-box;
+        max-width: 98vw;
+        width: 100%;
+    }
+    .header-info h1,
+    .prices-section h1 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin: 1.5rem 0 1rem 0;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        letter-spacing: 0.04em;
+    }
+    .profile-card {
+        max-width: 96vw;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1.2rem 0.5rem 1rem 0.5rem; /* reduce side padding */
+        font-size: 1.1rem;
+        word-break: break-word; /* allow long words to wrap */
+    }
+    .prices-section {
+        padding: 2.5rem 0 2.5rem 0;
+    }
+    .profile-section ul {
+        margin: 0 0 0 0.7rem; /* less left margin */
+        padding: 0;
+        font-size: 1.1rem;
+    }
+    .profile-section li {
+        font-size: 0.97rem;
+        word-break: break-word;
+    }
+    .profile-title {
+        font-size: 1.05rem;
+    }
+    .pic img {
+        max-width: 90vw;
+        max-height: 40vh;
+    }
+    .navbar ul li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 8px 0;
+        height: 48px;
+        font-size: 1rem;
+        display: flex;
+        justify-content: center; /* Center content horizontally */
+        align-items: center;
+    }
+    .prices-section {
+        padding: 2.5rem 0 2.5rem 0;
+    }
+    .prices-section .header-info,
+    .prices-section .profile-card {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-sizing: border-box;
+        max-width: 98vw;
+    }
+    .prices-section h1 {
+        font-size: 1.8rem;
+        text-align: justify;
+        margin-bottom: 2rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .service-section ul {
+        margin-left: 0.7rem;
+        font-size: 1.1rem;
+        word-break: break-word;
+    }
+    .service-section {
+        padding-bottom: 0.7rem;
+        margin-bottom: 1.2rem;
+    }
+    .service-rates {
+        font-size: 1.15rem;
+    }
+    .terms-section {
+        padding: 2.5rem 0 2.5rem 0;
+    }
+    .terms-section .header-info,
+    .terms-section .profile-card {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-sizing: border-box;
+        max-width: 98vw;
+        width: 100%;
+    }
+    .terms-section h1 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        letter-spacing: 0.04em;
+    }
+    .terms-list ul,
+    .terms-contact ul {
+        margin-left: 1rem;
+        font-size: 1.1rem;
+        word-break: break-word;
+    }
+    .terms-talk h2,
+    .terms-contact h2 {
+        font-size: 1.4rem;
+        margin-top: 1rem;
+    }
+}
+
+/* Desktop: Make navbar fixed and responsive */
+@media (min-width: 769px) {
+    /* If navbar is fixed, add space only for navbar height */
+    body {
+        padding-top: 64px !important;
+    }
+    .header {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 1000;
+        height: 64px;
+        background: rgba(20, 22, 30, 0.96);
+        box-shadow: 0 2px 16px 0 rgba(40,40,60,0.10);
+        display: flex;
+        align-items: center;
+    }
+    body {
+        padding-top: 64px !important; /* Ensure content is not hidden behind navbar */
+    }
+    .navbar ul {
+        height: 64px;
+        min-width: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
+        margin: 0;
+    }
+    .navbar ul li {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+        padding: 0 1.2vw;
+        margin: 0;
+    }
+    .navbar .search-bar input {
+        width: 180px;
+        max-width: 22vw;
+    }
+    /* Home section */
+    .header-info h1 {
+        font-size: 4.5rem;
+    }
+    .profile-card {
+        max-width: 800px;
+        font-size: 1.2rem;
+        padding: 2.8rem 2.2rem 2.2rem 2.2rem;
+    }
+    .profile-title {
+        font-size: 1.8rem;
+    }
+    .profile-section {
+        font-size: 1.15rem;
+    }
+
+    /* Prices section */
+    .prices-section h1 {
+        font-size: 3.2rem;
+    }
+    .service-section h2 {
+        font-size: 1.6rem;
+    }
+    .service-section ul {
+        font-size: 1.2rem;
+    }
+    .service-rates {
+        font-size: 1.3rem;
+    }
+    .prices-section .profile-card {
+        max-width: 1000px;
+        padding: 2.8rem 2.5rem;
+    }
+
+    /* Terms section */
+    .terms-section h1 {
+        font-size: 3.2rem;
+    }
+    .terms-section .profile-card {
+        max-width: 1000px;
+        padding: 2.8rem 2.5rem;
+    }
+    .terms-list ul,
+    .terms-contact ul {
+        font-size: 1.2rem;
+    }
+    .terms-talk h2,
+    .terms-contact h2 {
+        font-size: 1.5rem;
+    }
+    .terms-talk div {
+        font-size: 1.2rem;
+    }
+
+    /* Desktop styles for Home section */
+    .header {
+        height: 100vh;
+        min-height: 800px; /* Ensure minimum height */
+        padding: 64px 0 2rem 0; /* Account for fixed navbar */
+        margin-bottom: 2rem; /* Add space before next section */
+    }
+
+    .name {
+        flex: 1;
+        max-width: 45vw; /* Limit width relative to viewport */
+        height: calc(100vh - 64px); /* Full height minus navbar */
+        margin-right: 2vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pic img {
+        max-height: 80vh; /* Limit height relative to viewport */
+        max-width: 45vw; /* Match container width */
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .header-info {
+        flex: 1;
+        max-width: 45vw;
+        height: 100%;
+        margin-left: 2vw;
+        margin-top: 4rem;
+        padding-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-card {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 769px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: auto;
+        min-height: 600px;
+        padding: 2rem 0 2rem 0;
+        gap: 0;
+    }
+    .name {
+        position: static;
+        width: 100%;
+        max-width: 400px;
+        margin: 2rem auto 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        filter: none;
+    }
+    .header-info {
+        position: static;
+        margin: 1.5rem auto 0 auto;
+        max-width: 90vw;
+        width: 100%;
+        align-items: center;
+        background: none;
+        box-shadow: none;
+        padding: 0 1.5rem;
+    }
+    .header-info h1 {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+    .profile-card {
+        max-width: 96vw;
+        width: 100%;
+        padding: 1.2rem 1rem 1rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1400px) and (min-width: 1201px) {
+    .name {
+        max-width: 600px;
+        min-width: 350px;      /* Ensures image container doesn't get too small */
+        margin-right: 4vw;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .pic img {
+        min-width: 280px;      /* Ensures image itself doesn't get too small */
+        min-height: 320px;
+        max-width: 100%;
+        max-height: 70vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+/* Add to your fullscreen styles (@media (min-width: 1400px)) */
+@media (min-width: 1400px) {
+    /* Fix Home page layout */
+    .header {
+        min-height: 100vh;
+        height: auto;
+        padding: 64px 0 0 0;
+        margin-bottom: 0;
+        gap: 2rem;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .name {
+        flex: 1;
+        max-width: 45vw;
+        height: calc(100vh - 64px);
+        margin: 0 2vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pic img {
+        max-height: 85vh;
+        max-width: 45vw;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .header-info {
+        flex: 1;
+        max-width: 45vw;
+        height: auto;
+        margin: 0 2vw;
+        padding: 4rem 0;
+    }
+
+    /* Enlarge content for fullscreen */
+    .header-info h1 {
+        font-size: 5.5rem;
+        margin-bottom: 3rem;
+        line-height: 1.2;
+    }
+
+    .profile-card {
+        max-width: 100%;
+        height: auto;
+        padding: 3.5rem 4rem;
+        font-size: 1.4rem;
+    }
+
+    .profile-title {
+        font-size: 2.2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .profile-section {
+        font-size: 1.4rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .profile-section ul {
+        margin: 1.5rem 0 1.5rem 2rem;
+    }
+
+    .profile-section li {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    /* Expand Prices section for fullscreen */
+    .prices-section {
+        min-height: 100vh;
+        height: auto;
+        padding: 6rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .prices-section .header-info {
+        max-width: 45vw;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .prices-section .profile-card {
+        max-width: 45vw;
+        width: 100%;
+        height: auto;
+        padding: 4rem;
+        margin: 0 auto;
+    }
+
+    .service-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 4rem;
+        margin-bottom: 3rem;
+        padding: 0 2rem 2rem 2rem;
+    }
+
+    .service-section .content-wrapper {
+        flex: 2;
+    }
+
+    .service-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        color: #b8c6ff;
+    }
+
+    .service-section ul {
+        font-size: 1.4rem;
+        margin: 1rem 0 1.5rem 2rem;
+        line-height: 1.6;
+    }
+
+    .service-rates {
+        flex: 1;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1rem;
+        margin-top: 4.5rem;
+        font-size: 1.4rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .prices-section .header-info,
+    .prices-section .profile-card {
+        max-width: 900px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        box-sizing: border-box;
+    }
+}
+
+.prices-section {
+    width: 100vw;
+    background: #181b23; /* Remove opacity, use solid color */
+    padding: 4rem 0 4rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.prices-section .header-info {
+    margin: 0 auto;
+    align-items: flex-start;
+    max-width: 700px;
+}
+
+.prices-section h1 {
+    font-size: 2.5rem;
+    color: #b8c6ff;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.service-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(120,120,180,0.10);
+}
+.service-section:last-child {
+    border-bottom: none;
+}
+.service-section h2 {
+    color: #b8c6ff;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    letter-spacing: 0.03em;
+}
+.service-section ul {
+    margin: 0 0 0 1.1rem;
+    padding: 0;
+    list-style: disc;
+    color: #e0e6f0;
+    font-size: 1rem;
+}
+.service-rates {
+    margin-top: 0.5rem;
+    color: #a0b6ff;
+    font-size: 1.08rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.search-highlight {
+    outline: 2px solid #7a8cff;
+    background: rgba(80,100,180,0.13);
+    transition: background 0.4s, outline 0.4s;
+}
+.search-mark {
+    background: #b8c6ff;
+    color: #23263a;
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
+/* Add to your main.css for Terms & Conditions section styling */
+.terms-section {
+    width: 100vw;
+    background: #181b23;
+    padding: 4rem 0 4rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.terms-section .header-info {
+    margin: 0 auto;
+    align-items: flex-start;
+    max-width: 700px;
+}
+
+.terms-section h1 {
+    font-family: 'Horizon', 'Doto', sans-serif;
+    font-size: 2.5rem;
+    color: #b8c6ff;
+    margin-bottom: 2rem;
+    text-align: left;
+    letter-spacing: 0.04em;
+}
+
+.terms-list ul,
+.terms-contact ul {
+    margin: 0 0 1.5rem 1.1rem;
+    padding: 0;
+    list-style: disc;
+    color: #f5f7fa;
+    font-size: 1.05rem;
+}
+
+.terms-list li {
+    margin-bottom: 0.7rem;
+    line-height: 1.6;
+}
+
+.terms-talk h2,
+.terms-contact h2 {
+    color: #b8c6ff;
+    font-size: 1.18rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1.2rem;
+    letter-spacing: 0.03em;
+}
+
+.terms-talk div {
+    color: #e0e6f0;
+    font-size: 1.03rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+}
+
+.terms-contact a {
+    color: #b8c6ff;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+@media (max-width: 768px) {
+    .terms-section {
+        padding: 2.5rem 0 2.5rem 0;
+    }
+    .terms-section .header-info,
+    .terms-section .profile-card {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-sizing: border-box;
+        max-width: 98vw;
+        width: 100%;
+    }
+    .terms-section h1 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        letter-spacing: 0.04em;
+    }
+    .terms-list ul,
+    .terms-contact ul {
+        margin-left: 1rem;
+        font-size: 1.1rem;
+        word-break: break-word;
+    }
+    .terms-talk h2,
+    .terms-contact h2 {
+        font-size: 1.4rem;
+        margin-top: 1rem;
+    }
+}
+
+/* Add this at the end of your CSS file */
+.animate-float-up {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1.01);
+    filter: none;
+    transition:
+        opacity 1s cubic-bezier(.4,0,.2,1),
+        transform 1s cubic-bezier(.4,0,.2,1);
+}
+
+#home, #prices, #terms {
+    opacity: 0;
+    transform: translateY(80px) scale(0.97);
+    filter: none;
+    transition:
+        opacity 1s cubic-bezier(.4,0,.2,1),
+        transform 1s cubic-bezier(.4,0,.2,1);
+}
+
+/* Random direction floating bubbles */
+.floating-bubble {
+    position: fixed;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.85;
+    will-change: transform;
+}
+
+.floating-bubble.bubble1 {
+    left: 5vw;
+    bottom: -100px; /* Start from bottom */
+    width: 70px;
+    animation: float-bottom-right 12s linear infinite;
+}
+
+.floating-bubble.bubble2 {
+    right: -100px; /* Start from right */
+    top: 70vh;
+    width: 90px; 
+    animation: float-right-left 15s linear infinite;
+}
+
+.floating-bubble.bubble3 {
+    left: -100px; /* Start from left */
+    top: 50vh;
+    width: 110px;
+    animation: float-left-right 14s linear infinite;
+}
+
+.floating-bubble.bubble4 {
+    left: 60vw;
+    top: -100px; /* Start from top */
+    width: 80px;
+    animation: float-top-bottom 13s linear infinite;
+}
+
+/* Different direction animations */
+@keyframes float-bottom-right {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(30vw, -50vh) rotate(180deg); }
+    100% { transform: translate(60vw, -100vh) rotate(360deg); }
+}
+
+@keyframes float-right-left {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-50vw, -20vh) rotate(-180deg); }
+    100% { transform: translate(-100vw, -40vh) rotate(-360deg); }
+}
+
+@keyframes float-left-right {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(50vw, 20vh) rotate(180deg); }
+    100% { transform: translate(100vw, 40vh) rotate(360deg); }
+}
+
+@keyframes float-top-bottom {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-30vw, 50vh) rotate(-180deg); }
+    100% { transform: translate(-60vw, 100vh) rotate(-360deg); }
+}
+
+/* Reset animation when it ends */
+.floating-bubble {
+    animation-iteration-count: infinite;
+}
+
+@media (max-width: 768px) {
+    .floating-bubble {
+        width: 40px !important;
+        opacity: 0.7;
+    }
+}
