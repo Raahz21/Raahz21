@@ -31,6 +31,8 @@ body {
     width: 100vw;
     height: auto;
     box-shadow: 0 2px 16px 0 rgba(40,40,60,0.10);
+    z-index: 1000;
+    background: rgb(20, 22, 30); /* Remove transparency */
 }
 
 .navbar ul {
@@ -138,7 +140,7 @@ body {
 .profile-card {
     margin: 2rem auto 0 auto;
     max-width: 480px;
-    background: rgba(30, 32, 40, 0.85);
+    background: rgb(30, 32, 40); /* Remove transparency */
     border: 1.5px solid rgba(120, 120, 180, 0.18);
     border-radius: 1.2rem;
     box-shadow: 0 4px 32px 0 rgba(80,80,120,0.18), 0 0 0.5rem 0.1rem rgba(80,80,120,0.12);
@@ -149,10 +151,69 @@ body {
     letter-spacing: 0.01em;
     transition: box-shadow 0.3s;
     width: 100%;
+    position: relative;
+    z-index: 5;
 }
 
 .profile-card:hover {
     box-shadow: 0 8px 48px 0 rgba(120,120,180,0.22), 0 0 1rem 0.2rem rgba(120,120,180,0.18);
+}
+
+.corner-decoration {
+    position: absolute;
+    width: 80px;  /* Reduced from 120px */
+    height: 80px; /* Reduced from 120px */
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.85;
+    transition: transform 0.3s ease;
+}
+
+.corner-decoration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.corner-decoration.top-left {
+    top: -40px;    /* Adjusted from -60px */
+    left: -40px;   /* Adjusted from -60px */
+    transform: rotate(-45deg);
+}
+
+.corner-decoration.top-right {
+    top: -40px;    /* Adjusted from -60px */
+    right: -40px;  /* Adjusted from -60px */
+    transform: rotate(45deg);
+}
+
+.corner-decoration.bottom-left {
+    bottom: -40px; /* Adjusted from -60px */
+    left: -40px;   /* Adjusted from -60px */
+    transform: rotate(-135deg);
+}
+
+.corner-decoration.bottom-right {
+    bottom: -40px; /* Adjusted from -60px */
+    right: -40px;  /* Adjusted from -60px */
+    transform: rotate(135deg);
+}
+
+/* Hover effects */
+.profile-card:hover .corner-decoration.top-left {
+    transform: rotate(-30deg) translate(5px, 5px);
+}
+
+.profile-card:hover .corner-decoration.top-right {
+    transform: rotate(30deg) translate(-5px, 5px);
+}
+
+.profile-card:hover .corner-decoration.bottom-left {
+    transform: rotate(-150deg) translate(5px, -5px);
+}
+
+.profile-card:hover .corner-decoration.bottom-right {
+    transform: rotate(150deg) translate(-5px, -5px);
 }
 
 .profile-title {
@@ -163,6 +224,8 @@ body {
     margin-bottom: 1rem;
     letter-spacing: 0.04em;
     text-shadow: 0 2px 8px rgba(80,80,120,0.18);
+    position: relative;
+    z-index: 6; /* Higher than profile-card */
 }
 
 .profile-section {
@@ -182,6 +245,8 @@ body {
     padding: 0;
     list-style: disc;
     color: #f5f7fa !important; /* Apply bright color to all main text */
+    position: relative;
+    z-index: 6;
 }
 
 .profile-section li {
@@ -202,19 +267,143 @@ body {
 }
 
 .pic img {
-    max-height: 70vh;
+    max-height: 80vh;
     width: auto;
     height: auto;
-    display: block;
     object-fit: contain;
     filter:
-        drop-shadow(8px 0 0 rgba(80,80,80,0.7))
-        drop-shadow(16px 0 0 rgba(120,120,120,0.5))
-        drop-shadow(24px 0 0 rgba(180,180,180,0.4));
-    transition:
+        drop-shadow(4px 0 15px rgba(80, 80, 80, 0.2))
+        drop-shadow(8px 0 20px rgba(120, 120, 120, 0.15))
+        drop-shadow(12px 0 25px rgba(180, 180, 180, 0.1));
+    transition: 
         filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
         transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, filter;
+    animation: floatingIdle 3s ease-in-out infinite;
+}
+
+@keyframes floatingIdle {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Update the hover effect to combine with the idle animation */
+.name:hover .pic img {
+    animation: floatingIdle 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
+    filter: 
+        drop-shadow(0 0 20px rgba(184, 198, 255, 0.4))
+        drop-shadow(8px 0 25px rgba(120, 120, 180, 0.3))
+        drop-shadow(16px 0 30px rgba(180, 180, 180, 0.2));
+    transform: scale(1.02);
+}
+
+@keyframes glowPulse {
+    0% {
+        filter: 
+            drop-shadow(0 0 20px rgba(184, 198, 255, 0.4))
+            drop-shadow(8px 0 25px rgba(120, 120, 180, 0.3))
+            drop-shadow(16px 0 30px rgba(180, 180, 180, 0.2));
+    }
+    50% {
+        filter: 
+            drop-shadow(0 0 25px rgba(184, 198, 255, 0.5))
+            drop-shadow(8px 0 30px rgba(120, 120, 180, 0.4))
+            drop-shadow(16px 0 35px rgba(180, 180, 180, 0.3));
+    }
+    100% {
+        filter: 
+            drop-shadow(0 0 20px rgba(184, 198, 255, 0.4))
+            drop-shadow(8px 0 25px rgba(120, 120, 180, 0.3))
+            drop-shadow(16px 0 30px rgba(180, 180, 180, 0.2));
+    }
+}
+
+@keyframes emoteJump {
+    0% { transform: scale(1) translateY(0); }
+    40% { transform: scale(1.1) translateY(-20px); }
+    60% { transform: scale(0.9) translateY(0); }
+    80% { transform: scale(1.05) translateY(-10px); }
+    100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes emoteSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes emoteWiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-15deg); }
+    50% { transform: rotate(10deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes emoteSquish {
+    0% { transform: scale(1, 1); }
+    50% { transform: scale(1.2, 0.8); }
+    100% { transform: scale(1, 1); }
+}
+
+@keyframes emote-jump {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px) scale(1.1); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes emote-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes emote-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes emote-wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-20deg); }
+    75% { transform: rotate(20deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Random floating animations */
+@keyframes float-random1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30vw, -20vh) rotate(120deg); }
+    66% { transform: translate(-20vw, 15vh) rotate(240deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes float-random2 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-25vw, -25vh) rotate(-120deg); }
+    66% { transform: translate(15vw, -20vh) rotate(-240deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
+}
+
+@keyframes float-random3 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-20vw, 20vh) rotate(120deg); }
+    66% { transform: translate(25vw, -15vh) rotate(240deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes float-random4 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(20vw, 25vh) rotate(-120deg); }
+    66% { transform: translate(-15vw, -20vh) rotate(-240deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
 }
 
 /* Mobile: stack vertically, image on top */
@@ -418,6 +607,30 @@ body {
     .terms-contact h2 {
         font-size: 1.4rem;
         margin-top: 1rem;
+    }
+    .corner-decoration {
+        width: 60px;  /* Even smaller on mobile */
+        height: 60px;
+    }
+    
+    .corner-decoration.top-left {
+        top: -30px;
+        left: -30px;
+    }
+    
+    .corner-decoration.top-right {
+        top: -30px;
+        right: -30px;
+    }
+    
+    .corner-decoration.bottom-left {
+        bottom: -30px;
+        left: -30px;
+    }
+    
+    .corner-decoration.bottom-right {
+        bottom: -30px;
+        right: -30px;
     }
 }
 
@@ -756,6 +969,8 @@ body {
         font-size: 1.4rem;
         margin: 1rem 0 1.5rem 2rem;
         line-height: 1.6;
+        position: relative;
+        z-index: 6;
     }
 
     .service-rates {
@@ -765,6 +980,8 @@ body {
         gap: 1rem;
         margin-top: 4.5rem;
         font-size: 1.4rem;
+        position: relative;
+        z-index: 6;
     }
 }
 
@@ -783,7 +1000,7 @@ body {
 
 .prices-section {
     width: 100vw;
-    background: #181b23; /* Remove opacity, use solid color */
+    background: rgb(24, 27, 35); /* Remove transparency */
     padding: 4rem 0 4rem 0;
     display: flex;
     justify-content: center;
@@ -807,6 +1024,8 @@ body {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(120,120,180,0.10);
+    position: relative;
+    z-index: 6;
 }
 .service-section:last-child {
     border-bottom: none;
@@ -824,6 +1043,8 @@ body {
     list-style: disc;
     color: #e0e6f0;
     font-size: 1rem;
+    position: relative;
+    z-index: 6;
 }
 .service-rates {
     margin-top: 0.5rem;
@@ -831,6 +1052,8 @@ body {
     font-size: 1.08rem;
     font-weight: 500;
     letter-spacing: 0.01em;
+    position: relative;
+    z-index: 6;
 }
 
 .search-highlight {
@@ -848,7 +1071,7 @@ body {
 /* Add to your main.css for Terms & Conditions section styling */
 .terms-section {
     width: 100vw;
-    background: #181b23;
+    background: rgb(24, 27, 35); /* Remove transparency */
     padding: 4rem 0 4rem 0;
     display: flex;
     justify-content: center;
@@ -877,6 +1100,8 @@ body {
     list-style: disc;
     color: #f5f7fa;
     font-size: 1.05rem;
+    position: relative;
+    z-index: 6;
 }
 
 .terms-list li {
@@ -891,6 +1116,8 @@ body {
     margin-bottom: 0.5rem;
     margin-top: 1.2rem;
     letter-spacing: 0.03em;
+    position: relative;
+    z-index: 6;
 }
 
 .terms-talk div {
@@ -898,6 +1125,8 @@ body {
     font-size: 1.03rem;
     margin-bottom: 1.2rem;
     line-height: 1.6;
+    position: relative;
+    z-index: 6;
 }
 
 .terms-contact a {
@@ -964,63 +1193,80 @@ body {
 /* Random direction floating bubbles */
 .floating-bubble {
     position: fixed;
-    z-index: 10;
-    pointer-events: none;
+    z-index: 1; /* Lower z-index */
+    pointer-events: all;
     opacity: 0.85;
     will-change: transform;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    transition: transform 0.3s ease-out;
+    transform-origin: center;
 }
 
+.floating-bubble.dragging {
+    cursor: grabbing;
+    opacity: 1;
+    animation: none; /* Prevent conflict with emote animations */
+}
+
+.floating-bubble.static {
+    animation: none;
+    transition: transform 0.3s ease-out;
+}
+
+/* Update floating bubble positions and animations */
 .floating-bubble.bubble1 {
-    left: 5vw;
-    bottom: -100px; /* Start from bottom */
+    left: 45vw;
+    top: 50vh;
     width: 70px;
-    animation: float-bottom-right 12s linear infinite;
+    animation: float-right 12s linear infinite; /* Right side */
 }
 
 .floating-bubble.bubble2 {
-    right: -100px; /* Start from right */
-    top: 70vh;
+    left: 45vw;
+    top: 45vh;
     width: 90px; 
-    animation: float-right-left 15s linear infinite;
+    animation: float-top 15s linear infinite; /* Top side */
 }
 
 .floating-bubble.bubble3 {
-    left: -100px; /* Start from left */
-    top: 50vh;
+    left: 45vw;
+    top: 55vh;
     width: 110px;
-    animation: float-left-right 14s linear infinite;
+    animation: float-left 14s linear infinite; /* Left side */
 }
 
 .floating-bubble.bubble4 {
-    left: 60vw;
-    top: -100px; /* Start from top */
+    left: 45vw;
+    top: 40vh;
     width: 80px;
-    animation: float-top-bottom 13s linear infinite;
+    animation: float-bottom 13s linear infinite; /* Bottom side */
 }
 
 /* Different direction animations */
-@keyframes float-bottom-right {
+@keyframes float-right {
     0% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(30vw, -50vh) rotate(180deg); }
-    100% { transform: translate(60vw, -100vh) rotate(360deg); }
+    50% { transform: translate(40vw, -10vh) rotate(180deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
 }
 
-@keyframes float-right-left {
+@keyframes float-top {
     0% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(-50vw, -20vh) rotate(-180deg); }
-    100% { transform: translate(-100vw, -40vh) rotate(-360deg); }
+    50% { transform: translate(-20vw, -40vh) rotate(-180deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
 }
 
-@keyframes float-left-right {
+@keyframes float-left {
     0% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(50vw, 20vh) rotate(180deg); }
-    100% { transform: translate(100vw, 40vh) rotate(360deg); }
+    50% { transform: translate(-40vw, 10vh) rotate(180deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
 }
 
-@keyframes float-top-bottom {
+@keyframes float-bottom {
     0% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(-30vw, 50vh) rotate(-180deg); }
-    100% { transform: translate(-60vw, 100vh) rotate(-360deg); }
+    50% { transform: translate(20vw, 40vh) rotate(-180deg); }
+    100% { transform: translate(0, 0) rotate(-360deg); }
 }
 
 /* Reset animation when it ends */
@@ -1032,5 +1278,167 @@ body {
     .floating-bubble {
         width: 40px !important;
         opacity: 0.7;
+    }
+}
+
+/* Add emote animations for clicked state */
+@keyframes emote-beside {
+    0%, 100% { transform: translateX(10px) translateY(0); }
+    25% { transform: translateX(10px) translateY(-10px); }
+    75% { transform: translateX(10px) translateY(10px); }
+}
+
+/* Add to main.css */
+.chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chat-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background: #b8c6ff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    padding: 0; /* Remove padding */
+    overflow: hidden; /* Hide overflow */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-icon img {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    object-fit: contain; /* Maintain aspect ratio */
+}
+
+.chat-toggle:hover {
+    transform: scale(1.1);
+}
+
+.chat-container {
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 300px;
+    height: 400px;
+    background: rgb(24, 27, 35); /* Remove transparency */
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.chat-container.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px;
+    background: rgb(35, 38, 58); /* Remove transparency */
+    color: #b8c6ff;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-chat {
+    background: none;
+    border: none;
+    color: #b8c6ff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.user-message {
+    background: #2a2d45;
+    color: #f5f7fa;
+    margin-left: auto;
+}
+
+.bot-message {
+    background: #343850;
+    color: #f5f7fa;
+}
+
+.chat-input {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    background: #23263a;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #343850;
+    border-radius: 4px;
+    background: #181b23;
+    color: #f5f7fa;
+}
+
+.send-message {
+    padding: 8px 15px;
+    background: #b8c6ff;
+    color: #181b23;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Add to your chat-widget styles in main.css */
+.chat-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reset-chat {
+    background: none;
+    border: none;
+    color: #b8c6ff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.3s;
+}
+
+.reset-chat:hover {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        width: calc(100vw - 40px);
+        right: -20px;
     }
 }

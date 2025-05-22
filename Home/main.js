@@ -152,3 +152,291 @@ style.innerHTML = `
 }
 `;
 document.head.appendChild(style);
+
+// Add to main.js
+document.addEventListener('DOMContentLoaded', function() {
+    const chatToggle = document.querySelector('.chat-toggle');
+    const chatContainer = document.querySelector('.chat-container');
+    const closeChat = document.querySelector('.close-chat');
+    const chatInput = document.querySelector('.chat-input input');
+    const sendButton = document.querySelector('.send-message');
+    const chatMessages = document.querySelector('.chat-messages');
+
+    // Initial bot message
+    addMessage('Hi! I\'m Raahz Assistant. How can I help you today?', 'bot');
+
+    chatToggle.addEventListener('click', () => {
+        chatContainer.classList.add('active');
+    });
+
+    closeChat.addEventListener('click', () => {
+        chatContainer.classList.remove('active');
+    });
+
+    function addMessage(text, sender) {
+        const message = document.createElement('div');
+        message.classList.add('message', `${sender}-message`);
+        message.textContent = text;
+        chatMessages.appendChild(message);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function searchAndScroll(searchTerm) {
+        const contentSelectors = [
+            '.header-info', '.profile-card', '.prices-section', '.service-section'
+        ];
+        let found = false;
+        
+        for (const selector of contentSelectors) {
+            const elements = document.querySelectorAll(selector);
+            for (const el of elements) {
+                const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                if (regex.test(el.textContent)) {
+                    // Remove previous highlights
+                    document.querySelectorAll('.search-highlight').forEach(el => {
+                        el.classList.remove('search-highlight');
+                    });
+                    document.querySelectorAll('.search-mark').forEach(el => {
+                        const parent = el.parentNode;
+                        parent.replaceChild(document.createTextNode(el.textContent), el);
+                        parent.normalize();
+                    });
+
+                    // Add new highlight
+                    el.innerHTML = el.innerHTML.replace(regex, '<span class="search-mark">$1</span>');
+                    el.classList.add('search-highlight');
+
+                    // Calculate offset for centered scrolling
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    const elementRect = el.getBoundingClientRect();
+                    const absoluteElementTop = elementRect.top + window.pageYOffset;
+                    const middle = absoluteElementTop - (window.innerHeight / 2) + (elementRect.height / 2);
+
+                    // Smooth scroll with offset
+                    window.scrollTo({
+                        top: middle,
+                        behavior: 'smooth'
+                    });
+
+                    found = true;
+                    break;
+                }
+            }
+            if (found) break;
+        }
+        return found;
+    }
+
+    function handleUserMessage(text) {
+        addMessage(text, 'user');
+        
+        const lowercaseText = text.toLowerCase();
+        let response = '';
+
+        // Remove previous highlights first
+        document.querySelectorAll('.search-highlight').forEach(el => {
+            el.classList.remove('search-highlight');
+        });
+        document.querySelectorAll('.search-mark').forEach(el => {
+            const parent = el.parentNode;
+            parent.replaceChild(document.createTextNode(el.textContent), el);
+            parent.normalize();
+        });
+
+        // Enhanced response logic with search and scroll
+        if (lowercaseText.includes('price') || lowercaseText.includes('rate')) {
+            if (searchAndScroll('price')) {
+                response = 'I\'ve scrolled to the Prices section for you. You can find our detailed rates here.';
+            } else {
+                response = 'You can find our services and rates in the Prices section.';
+            }
+        } else if (lowercaseText.includes('terms') || lowercaseText.includes('condition')) {
+            if (searchAndScroll('terms')) {
+                response = 'I\'ve scrolled to the Terms & Conditions section for you.';
+            } else {
+                response = 'Please check our Terms & Conditions section for important information.';
+            }
+        } else if (lowercaseText.includes('contact') || lowercaseText.includes('message')) {
+            if (searchAndScroll('contact')) {
+                response = 'I\'ve highlighted the contact information for you.';
+            } else {
+                response = 'You can contact Raahz through Facebook, Instagram, Discord, or TikTok.';
+            }
+        } else if (lowercaseText.includes('hello') || lowercaseText.includes('hi')) {
+            response = 'Hello! How can I assist you today?';
+        } else {
+            // Try to find any matching content
+            if (searchAndScroll(text)) {
+                response = 'I\'ve found and highlighted the relevant information for you.';
+            } else {
+                response = 'I\'m here to help! Feel free to ask about our services, prices, or terms and conditions.';
+            }
+        }
+
+        setTimeout(() => {
+            addMessage(response, 'bot');
+        }, 500);
+    }
+
+    sendButton.addEventListener('click', () => {
+        const text = chatInput.value.trim();
+        if (text) {
+            handleUserMessage(text);
+            chatInput.value = '';
+        }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const text = chatInput.value.trim();
+            if (text) {
+                handleUserMessage(text);
+                chatInput.value = '';
+            }
+        }
+    });
+
+    const resetButton = document.querySelector('.reset-chat');
+    
+    resetButton.addEventListener('click', () => {
+        chatMessages.innerHTML = ''; // Clear all messages
+        // Add back the initial greeting
+        addMessage('Hi! I\'m Raahz Assistant. How can I help you today?', 'bot');
+    });
+});
+
+// Add to main.js
+document.addEventListener('DOMContentLoaded', function() {
+    const bubbles = document.querySelectorAll('.floating-bubble');
+    const mainImage = document.querySelector('.pic img');
+    
+    bubbles.forEach(bubble => {
+        let isDragging = false;
+        let isEmoting = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        // Initial floating animation from behind main image
+        bubble.dataset.originalAnimation = `float-random${Math.floor(Math.random() * 4) + 1} ${12 + Math.random() * 6}s linear infinite`;
+        bubble.style.animation = bubble.dataset.originalAnimation;
+        bubble.style.left = '45vw';
+        bubble.style.top = '50vh';
+
+        function returnToMainImage() {
+            if (isEmoting) return;
+            
+            const imageRect = mainImage.getBoundingClientRect();
+            isEmoting = true;
+            
+            // Position around main image based on bubble number
+            let position;
+            if (bubble.classList.contains('bubble1')) {
+                // Right side
+                position = {
+                    left: `${imageRect.right + 20}px`,
+                    top: `${imageRect.top + imageRect.height/2}px`
+                };
+            } else if (bubble.classList.contains('bubble2')) {
+                // Top side
+                position = {
+                    left: `${imageRect.left + imageRect.width/2}px`,
+                    top: `${imageRect.top - 60}px`
+                };
+            } else if (bubble.classList.contains('bubble3')) {
+                // Left side
+                position = {
+                    left: `${imageRect.left - 60}px`,
+                    top: `${imageRect.top + imageRect.height/2}px`
+                };
+            } else if (bubble.classList.contains('bubble4')) {
+                // Bottom side
+                position = {
+                    left: `${imageRect.left + imageRect.width/2}px`,
+                    top: `${imageRect.bottom + 20}px`
+                };
+            }
+            
+            // Apply position
+            bubble.style.transition = 'all 0.5s ease-out';
+            bubble.style.left = position.left;
+            bubble.style.top = position.top;
+            
+            // Start emote animation
+            bubble.style.animation = 'emote-beside 2s ease-in-out infinite';
+            
+            // Return to floating after 3 seconds
+            setTimeout(() => {
+                isEmoting = false;
+                bubble.style.transition = 'none';
+                // Generate new random animation
+                bubble.dataset.originalAnimation = `float-random${Math.floor(Math.random() * 4) + 1} ${12 + Math.random() * 6}s linear infinite`;
+                bubble.style.animation = bubble.dataset.originalAnimation;
+                bubble.style.left = '45vw';
+                bubble.style.top = '50vh';
+            }, 3000);
+        }
+
+        function onClick(e) {
+            if (!isDragging && !isEmoting) {
+                returnToMainImage();
+            }
+        }
+
+        bubble.addEventListener('click', onClick);
+
+        function dragStart(e) {
+            if (isEmoting) return;
+            
+            if (e.type === "touchstart") {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+
+            if (e.target === bubble) {
+                isDragging = true;
+                bubble.classList.add('dragging');
+            }
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+
+                if (e.type === "touchmove") {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+
+                xOffset = currentX;
+                yOffset = currentY;
+                bubble.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            }
+        }
+
+        function dragEnd() {
+            if (isDragging) {
+                isDragging = false;
+                bubble.classList.remove('dragging');
+                returnToMainImage();
+            }
+        }
+
+        bubble.addEventListener("touchstart", dragStart, { passive: false });
+        bubble.addEventListener("touchend", dragEnd);
+        bubble.addEventListener("touchmove", drag, { passive: false });
+        bubble.addEventListener("mousedown", dragStart);
+        bubble.addEventListener("mouseup", dragEnd);
+        bubble.addEventListener("mousemove", drag);
+        bubble.addEventListener("mouseleave", dragEnd);
+    });
+});
