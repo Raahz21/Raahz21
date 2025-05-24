@@ -506,17 +506,31 @@ body {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
+    .service-section {
+        padding-bottom: 0.7rem;
+        margin-bottom: 1.2rem;
+    }
     .service-section ul {
         margin-left: 0.7rem;
         font-size: 1.1rem;
         word-break: break-word;
     }
     .service-section {
-        padding-bottom: 0.7rem;
-        margin-bottom: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    .content-wrapper {
+        flex: 1;
     }
     .service-rates {
-        font-size: 1.15rem;
+        min-width: 200px;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
     .terms-section {
         padding: 2.5rem 0 2.5rem 0;
@@ -904,16 +918,63 @@ body {
     }
 }
 
-@media (min-width: 1200px) {
-    .prices-section .header-info,
+/* Update fullscreen styles for Prices section */
+@media (min-width: 1400px) {
     .prices-section .profile-card {
-        max-width: 900px;
+        max-width: 1200px; /* Increased from 900px */
         width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        box-sizing: border-box;
+        padding: 4rem 6rem; /* Increased padding */
+    }
+
+    .service-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 6rem; /* Increased gap between content and rates */
+        margin-bottom: 4rem; /* More space between sections */
+        padding: 0 0 2.5rem 0;
+    }
+
+    .service-section .content-wrapper {
+        flex: 3; /* Give more space to content */
+    }
+
+    .service-section h2 {
+        font-size: 2.4rem;
+        margin-bottom: 2rem;
+    }
+
+    .service-section ul {
+        font-size: 1.6rem;
+        margin: 1.5rem 0 1.5rem 2.5rem;
+        line-height: 1.8;
+    }
+
+    .service-rates {
+        flex: 2; /* More space for rates */
+        min-width: 300px;
+        font-size: 1.6rem;
+        padding: 0.5rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .rate-label {
+        color: #b8c6ff;
+        font-weight: 500;
+    }
+
+    .rate-value {
+        color: #f5f7fa;
+    }
+}
+
+/* Update large screen styles but not quite fullscreen */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .prices-section .profile-card {
+        max-width: 1000px;
+        padding: 3rem 4rem;
     }
 }
 
